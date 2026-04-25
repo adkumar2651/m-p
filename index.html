@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Wedding Anniversary ❤️</title>
+
+  <!-- Google Fonts: Playfair Display (display) + Cormorant Garamond (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS VARIABLES & RESET
+    ============================================================ */
+    :root {
+      --bg:          #0a0408;
+      --deep:        #0d0610;
+      --neon-pink:   #ff2d78;
+      --neon-red:    #ff1744;
+      --gold:        #ffc947;
+      --gold-light:  #ffe082;
+      --rose:        #ff6b9d;
+      --glow-pink:   rgba(255, 45, 120, 0.6);
+      --glow-gold:   rgba(255, 201, 71, 0.5);
+      --text-main:   #fff5f8;
+      --text-soft:   rgba(255, 245, 248, 0.75);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ============================================================
+       BACKGROUND AMBIENT GRADIENT ANIMATION
+    ============================================================ */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    /* Slowly drifting radial glows behind everything */
+    .ambient-bg::before,
+    .ambient-bg::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.35;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    .ambient-bg::before {
+      width: 60vw; height: 60vw;
+      background: radial-gradient(circle, #ff2d7866, transparent 70%);
+      top: -20%; left: -10%;
+      animation-delay: 0s;
+    }
+    .ambient-bg::after {
+      width: 50vw; height: 50vw;
+      background: radial-gradient(circle, #ffc94755, transparent 70%);
+      bottom: -15%; right: -10%;
+      animation-delay: -9s;
+    }
+
+    @keyframes drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(5vw, 3vh) scale(1.1); }
+      100% { transform: translate(-3vw, 6vh) scale(0.95); }
+    }
+
+    /* Extra subtle star-noise overlay */
+    .star-field {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 15%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 65%, rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.25) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 55%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 40% 90%, rgba(255,255,255,0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 65% 40%, rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 55%, rgba(255,255,255,0.25) 0%, transparent 100%);
+      animation: twinkle 6s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes twinkle {
+      0%   { opacity: 0.4; }
+      100% { opacity: 0.9; }
+    }
+
+    /* ============================================================
+       FLOATING HEARTS CANVAS
+    ============================================================ */
+    #hearts-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       MUSIC BUTTON (fixed top-right)
+    ============================================================ */
+    #music-btn {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.4rem;
+      z-index: 100;
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      border: 1.5px solid var(--neon-pink);
+      background: rgba(10,4,8,0.7);
+      backdrop-filter: blur(8px);
+      color: var(--neon-pink);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 12px var(--glow-pink), inset 0 0 8px rgba(255,45,120,0.1);
+      transition: box-shadow 0.3s, transform 0.2s;
+    }
+    #music-btn:hover {
+      box-shadow: 0 0 22px var(--glow-pink), inset 0 0 16px rgba(255,45,120,0.2);
+      transform: scale(1.1);
+    }
+
+    /* ============================================================
+       SCROLL WRAPPER — all sections stack here
+    ============================================================ */
+    .page-wrapper {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ============================================================
+       SECTION COMMON
+    ============================================================ */
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 1.5rem;
+      text-align: center;
+    }
+
+    /* ============================================================
+       ★ SECTION 1: OPENING SCENE
+    ============================================================ */
+    #opening {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Glowing ring decoration */
+    .opening-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 45, 120, 0.2);
+      animation: ring-pulse 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .opening-ring:nth-child(1) { width: 420px; height: 420px; animation-delay: 0s; }
+    .opening-ring:nth-child(2) { width: 600px; height: 600px; animation-delay: -1.3s; border-color: rgba(255,201,71,0.15); }
+    .opening-ring:nth-child(3) { width: 780px; height: 780px; animation-delay: -2.6s; border-color: rgba(255,45,120,0.1); }
+
+    @keyframes ring-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50%       { transform: scale(1.05); opacity: 1; }
+    }
+
+    .opening-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.75rem, 2vw, 0.9rem);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-shadow: 0 0 14px var(--glow-gold);
+      opacity: 0;
+      animation: fade-up 1.2s ease forwards 0.4s;
+    }
+
+    .opening-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.8rem, 9vw, 7rem);
+      line-height: 1.15;
+      background: linear-gradient(135deg, var(--neon-pink) 0%, var(--gold) 50%, var(--rose) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(255,45,120,0.7));
+      opacity: 0;
+      transform: scale(0.8);
+      animation: zoom-in 1.4s cubic-bezier(0.16,1,0.3,1) forwards 0.8s;
+    }
+
+    .opening-heart-icon {
+      display: inline-block;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      opacity: 0;
+      animation: fade-up 1s ease forwards 1.8s, heartbeat 1.8s ease-in-out 2.5s infinite;
+      filter: drop-shadow(0 0 16px var(--neon-pink));
+    }
+
+    .opening-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 3vw, 1.35rem);
+      color: var(--text-soft);
+      letter-spacing: 0.08em;
+      max-width: 520px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fade-up 1.2s ease forwards 2.2s;
+    }
+
+    .opening-divider {
+      width: 120px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      animation: fade-up 1s ease forwards 2.6s;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      opacity: 0;
+      animation: fade-up 1s ease forwards 3.2s;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    }
+    .scroll-arrow {
+      width: 14px; height: 14px;
+      border-right: 1.5px solid var(--gold);
+      border-bottom: 1.5px solid var(--gold);
+      transform: rotate(45deg);
+      animation: bounce-down 1.5s ease-in-out infinite;
+    }
+    @keyframes bounce-down {
+      0%, 100% { transform: rotate(45deg) translate(0,0); opacity: 0.5; }
+      50%       { transform: rotate(45deg) translate(3px,3px); opacity: 1; }
+    }
+
+    /* Reusable keyframes */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes zoom-in {
+      from { opacity: 0; transform: scale(0.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14%      { transform: scale(1.2); }
+      28%      { transform: scale(1); }
+      42%      { transform: scale(1.12); }
+      56%      { transform: scale(1); }
+    }
+
+    /* ============================================================
+       ★ SECTION 2: PHOTO SLIDESHOW
+    ============================================================ */
+    #slideshow {
+      background: transparent;
+      gap: 3rem;
+    }
+
+    .section-label {
+      font-size: clamp(0.65rem, 1.8vw, 0.8rem);
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-shadow: 0 0 10px var(--glow-gold);
+    }
+
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--text-main);
+      text-shadow: 0 0 40px rgba(255,45,120,0.3);
+    }
+
+    .section-heading em {
+      font-style: italic;
+      background: linear-gradient(90deg, var(--neon-pink), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .slideshow-frame {
+      position: relative;
+      width: min(560px, 92vw);
+      aspect-ratio: 4/3;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,201,71,0.25),
+        0 0 40px rgba(255,45,120,0.25),
+        0 30px 80px rgba(0,0,0,0.7);
+    }
+
+    /* Decorative corner brackets */
+    .slideshow-frame::before,
+    .slideshow-frame::after {
+      content: '';
+      position: absolute;
+      width: 28px; height: 28px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .slideshow-frame::before {
+      top: 10px; left: 10px;
+      border-top: 2px solid var(--gold);
+      border-left: 2px solid var(--gold);
+    }
+    .slideshow-frame::after {
+      bottom: 10px; right: 10px;
+      border-bottom: 2px solid var(--gold);
+      border-right: 2px solid var(--gold);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .slide.active { opacity: 1; }
+
+    .slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Placeholder slide design (shown when no real photo is used) */
+    .slide-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.9rem;
+      background: linear-gradient(135deg, #1a0810 0%, #0d0614 50%, #120810 100%);
+    }
+    .slide-placeholder-icon {
+      font-size: 3.5rem;
+      filter: drop-shadow(0 0 18px var(--neon-pink));
+      animation: heartbeat 2s ease-in-out infinite;
+    }
+    .slide-placeholder-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.08em;
+    }
+    .slide-placeholder-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      opacity: 0.7;
+    }
+
+    /* Progress dots */
+    .slide-dots {
+      display: flex; gap: 0.55rem; align-items: center;
+    }
+    .slide-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      transition: background 0.4s, transform 0.4s;
+      cursor: pointer;
+    }
+    .slide-dot.active {
+      background: var(--gold);
+      transform: scale(1.4);
+      box-shadow: 0 0 8px var(--glow-gold);
+    }
+
+    /* ============================================================
+       ★ SECTION 3: ROMANTIC MESSAGE (TYPEWRITER)
+    ============================================================ */
+    #message {
+      background: transparent;
+      gap: 3rem;
+    }
+
+    .message-card {
+      position: relative;
+      max-width: 680px;
+      width: 92%;
+      padding: 3.5rem 3rem;
+      border: 1px solid rgba(255,201,71,0.18);
+      background: rgba(255,45,120,0.04);
+      backdrop-filter: blur(16px);
+      box-shadow:
+        0 0 60px rgba(255,45,120,0.08),
+        0 30px 80px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,201,71,0.12);
+    }
+
+    /* Corner ornaments */
+    .message-card::before,
+    .message-card::after {
+      content: '✦';
+      position: absolute;
+      color: var(--gold);
+      font-size: 1.2rem;
+      opacity: 0.5;
+      text-shadow: 0 0 8px var(--glow-gold);
+    }
+    .message-card::before { top: 1rem; left: 1.2rem; }
+    .message-card::after  { bottom: 1rem; right: 1.2rem; }
+
+    .message-from {
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--rose);
+      text-shadow: 0 0 10px rgba(255,107,157,0.5);
+      margin-bottom: 2rem;
+    }
+
+    .typewriter-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+      line-height: 1.9;
+      color: var(--text-soft);
+      font-style: italic;
+      min-height: 8em;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--neon-pink);
+      margin-left: 2px;
+      vertical-align: middle;
+      box-shadow: 0 0 8px var(--glow-pink);
+      animation: blink 0.85s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    .message-sig {
+      margin-top: 2rem;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.8rem;
+      color: var(--gold);
+      text-shadow: 0 0 16px var(--glow-gold);
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .message-sig.visible { opacity: 1; }
+
+    /* ============================================================
+       ★ SECTION 4: FINAL CELEBRATION SCENE
+    ============================================================ */
+    #finale {
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+    }
+
+    #fireworks-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .finale-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 2rem;
+    }
+
+    .finale-rings {
+      position: absolute;
+      inset: 0; z-index: 1;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    .finale-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,201,71,0.12);
+      animation: ring-expand 4s ease-out infinite;
+    }
+    .finale-ring:nth-child(1) { width: 200px; height: 200px; animation-delay: 0s; }
+    .finale-ring:nth-child(2) { width: 350px; height: 350px; animation-delay: -1.3s; border-color: rgba(255,45,120,0.1); }
+    .finale-ring:nth-child(3) { width: 500px; height: 500px; animation-delay: -2.6s; }
+    .finale-ring:nth-child(4) { width: 700px; height: 700px; animation-delay: -3.9s; border-color: rgba(255,45,120,0.08); }
+
+    @keyframes ring-expand {
+      0%   { transform: scale(0.8); opacity: 0.8; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    .finale-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-shadow: 0 0 12px var(--glow-gold);
+      opacity: 0;
+    }
+    .finale-label.appear { animation: fade-up 1.2s ease forwards; }
+
+    .finale-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3rem, 10vw, 7.5rem);
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, var(--neon-pink) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 40px rgba(255,201,71,0.6));
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    .finale-title.appear { animation: zoom-in 1.5s cubic-bezier(0.16,1,0.3,1) forwards 0.4s; }
+
+    .finale-heart {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      filter: drop-shadow(0 0 24px var(--neon-pink));
+      opacity: 0;
+    }
+    .finale-heart.appear { animation: fade-up 1s ease forwards 1.2s, heartbeat 2s ease-in-out 2s infinite; }
+
+    .finale-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--text-soft);
+      letter-spacing: 0.08em;
+      max-width: 480px;
+      line-height: 1.8;
+      opacity: 0;
+    }
+    .finale-sub.appear { animation: fade-up 1.2s ease forwards 1.8s; }
+
+    .finale-footer {
+      margin-top: 2rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      opacity: 0;
+    }
+    .finale-footer.appear { animation: fade-up 1s ease forwards 2.4s; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 600px) {
+      .message-card { padding: 2.5rem 1.5rem; }
+      .opening-ring:nth-child(3) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       AMBIENT BACKGROUND (fixed, behind everything)
+  ============================================================ -->
+  <div class="ambient-bg" aria-hidden="true"></div>
+  <div class="star-field"  aria-hidden="true"></div>
+
+  <!-- ============================================================
+       FLOATING HEARTS CANVAS (fixed overlay)
+  ============================================================ -->
+  <canvas id="hearts-canvas" aria-hidden="true"></canvas>
+
+  <!-- ============================================================
+       MUSIC BUTTON (fixed top-right)
+  ============================================================ -->
+  <button id="music-btn" title="Toggle music" aria-label="Toggle background music">♪</button>
+
+  <!--
+    ────────────────────────────────────────────
+    BACKGROUND MUSIC
+    Replace "your-song.mp3" with an actual MP3 file
+    path — e.g. music/romantic.mp3
+    or a hosted URL.
+    ────────────────────────────────────────────
+  -->
+  <audio id="bg-music" loop preload="auto">
+  <source src="videoplayback.m4a" type="audio/mp4" />
+</audio>
+  <!-- ============================================================
+       PAGE WRAPPER
+  ============================================================ -->
+  <div class="page-wrapper">
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 1: OPENING SCENE
+    ═══════════════════════════════════════════ -->
+    <section id="opening" aria-label="Opening">
+
+      <!-- Decorative concentric rings -->
+      <div class="opening-ring" aria-hidden="true"></div>
+      <div class="opening-ring" aria-hidden="true"></div>
+      <div class="opening-ring" aria-hidden="true"></div>
+
+      <p class="opening-eyebrow">A Celebration of Love</p>
+
+      <!-- Main glowing animated title -->
+      <h1 class="opening-title">Happy Wedding Anniversary</h1>
+
+      <!-- Animated heart -->
+      <span class="opening-heart-icon" role="img" aria-label="heart">❤️</span>
+
+      <!-- Divider line -->
+      <div class="opening-divider" aria-hidden="true"></div>
+
+      <!-- Subtitle -->
+      <p class="opening-subtitle">
+        Every day with you is a gift I never want to stop unwrapping.
+        Here's to us — forever and always.
+      </p>
+
+      <!-- Scroll indicator -->
+      <div class="scroll-cue" aria-hidden="true">
+        <span>Scroll</span>
+        <span class="scroll-arrow"></span>
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 2: PHOTO SLIDESHOW
+    ═══════════════════════════════════════════ -->
+    <section id="slideshow" aria-label="Photo Gallery">
+
+      <p class="section-label">Our Story</p>
+      <h2 class="section-heading">Memories We've <em>Captured</em></h2>
+
+      <!-- Slideshow frame — add your own <img> tags inside each .slide -->
+      <div class="slideshow-frame" role="region" aria-label="Photo slideshow">
+
+        <!--
+          ┌─────────────────────────────────────────────────────┐
+          │  PHOTO SLIDES — HOW TO USE:                         │
+          │  Replace each <div class="slide-placeholder"> block │
+          │  with an <img> tag pointing to your photo:          │
+          │                                                     │
+          │  <img src="photos/photo1.jpg" alt="Our first date"> │
+          │                                                     │
+          │  You can add as many .slide divs as you like.       │
+          └─────────────────────────────────────────────────────┘
+        -->
+
+        <!-- Slide 1 -->
+        <div class="slide active" role="img" aria-label="Photo 1">
+          <div class="slide-placeholder">
+            <span class="slide-placeholder-icon"><img src="WhatsApp Image 2026-04-25 at 2.13.12 PM.jpeg" 
+     alt="Parents smiling together on their anniversary"
+     style="width:300px; height:300px; object-fit:cover; border-radius:20px; display:block; margin:20px auto; box-shadow:0 0 25px pink;"></span>
+            <span class="slide-placeholder-text"></span>
+            <span class="slide-placeholder-num">🤝 Walking together is the most beautiful journey ❤️</span>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide" role="img" aria-label="Photo 2">
+          <div class="slide-placeholder">
+            <span class="slide-placeholder-icon"><img src="WhatsApp Image 2026-04-25 at 2.11.43 PM.jpeg" 
+     alt="25th anniversary photo of my parents"
+     style="width:300px; height:300px; object-fit:cover; border-radius:20px; display:block; margin:20px auto; box-shadow:0 0 25px pink;"></span>
+            <span class="slide-placeholder-text"></span>
+            <span class="slide-placeholder-num">🎂 Sweet memories and even sweeter love 😍</span>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide" role="img" aria-label="Photo 3">
+          <div class="slide-placeholder">
+            <span class="slide-placeholder-icon"><img src="WhatsApp Image 2026-04-25 at 2.10.04 PM.jpeg" 
+     alt="Parents smiling together on their anniversary"
+     style="width:300px; height:300px; object-fit:cover; border-radius:20px; display:block; margin:20px auto; box-shadow:0 0 25px pink;"></span>
+            <span class="slide-placeholder-text"></span>
+            <span class="slide-placeholder-num">🌿 The true meaning of love and peace 💞</span>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide" role="img" aria-label="Photo 4">
+          <div class="slide-placeholder">
+            <span class="slide-placeholder-icon"><img src="WhatsApp Image 2026-04-25 at 1.44.23 PM.jpeg" 
+     alt="Parents smiling together on their anniversary"
+     style="width:300px; height:300px; object-fit:cover; border-radius:20px; display:block; margin:20px auto; box-shadow:0 0 25px pink;"></span>
+            <span class="slide-placeholder-text"></span>
+            <span class="slide-placeholder-num">👫 Perfect pair, perfect smiles ❤️</span>
+          </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide" role="img" aria-label="Photo 5">
+          <div class="slide-placeholder">
+            <span class="slide-placeholder-icon"><img src="WhatsApp Image 2026-04-25 at 1.44.08 PM.jpeg" 
+     alt="Parents smiling together on their anniversary"
+     style="width:300px; height:300px; object-fit:cover; border-radius:20px; display:block; margin:20px auto; box-shadow:0 0 25px pink;"></span>
+            <span class="slide-placeholder-text"></span>
+            <span class="slide-placeholder-num">💖 Every moment feels special when you're together ✨</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Navigation dots -->
+      <div class="slide-dots" role="tablist" aria-label="Slide navigation">
+        <!-- Dots are generated by JavaScript below -->
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 3: ROMANTIC MESSAGE (TYPEWRITER)
+    ═══════════════════════════════════════════ -->
+    <section id="message" aria-label="Love message">
+
+      <p class="section-label">From the Heart</p>
+      <h2 class="section-heading">A <em>Love Letter</em> to You</h2>
+
+      <div class="message-card">
+        <p class="message-from">Written with all my love ✦</p>
+
+        <!--
+          ┌──────────────────────────────────────────────────────────┐
+          │  TYPEWRITER MESSAGE — EDIT HERE                          │
+          │  Change the text inside the JS variable `messageText`    │
+          │  (search for "EDIT MESSAGE" below) to personalise this.  │
+          └──────────────────────────────────────────────────────────┘
+        -->
+        <p class="typewriter-text" id="typewriter-output">
+          <span class="cursor" aria-hidden="true"></span>
+        </p>
+
+        <!-- Signature — edit to your/partner's name -->
+        <p class="message-sig" id="msg-sig">With all my love, Always ❤️</p>
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 4: FINALE / CELEBRATION
+    ═══════════════════════════════════════════ -->
+    <section id="finale" aria-label="Finale">
+
+      <!-- Fireworks canvas (JS-driven) -->
+      <canvas id="fireworks-canvas" aria-hidden="true"></canvas>
+
+      <!-- Expanding rings decoration -->
+      <div class="finale-rings" aria-hidden="true">
+        <div class="finale-ring"></div>
+        <div class="finale-ring"></div>
+        <div class="finale-ring"></div>
+        <div class="finale-ring"></div>
+      </div>
+
+      <!-- Finale text content (animated in by IntersectionObserver) -->
+      <div class="finale-content">
+        <p  class="finale-label" id="f-label">Always &amp; Forever</p>
+        <h2 class="finale-title" id="f-title">Forever Together</h2>
+        <span class="finale-heart" id="f-heart" role="img" aria-label="heart">❤️</span>
+        <p  class="finale-sub" id="f-sub">
+          Today, tomorrow, and every beautiful day in between —
+          thank you for being my everything.
+        </p>
+        <p  class="finale-footer" id="f-footer">
+          ✦ &nbsp; With Endless Love &nbsp; ✦
+        </p>
+      </div>
+
+    </section>
+
+  </div><!-- /page-wrapper -->
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+  /* ============================================================
+     1. FLOATING HEARTS (Canvas)
+  ============================================================ */
+  (function () {
+    const canvas = document.getElementById('hearts-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    // Resize canvas to fill window
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Heart colors — neon pink / red / gold
+    const COLORS = ['#ff2d78', '#ff1744', '#ffc947', '#ff6b9d', '#ff5e7e'];
+
+    // Heart path helper (draw a heart centred at 0,0 of given size)
+    function drawHeart(ctx, size) {
+      ctx.beginPath();
+      ctx.moveTo(0, -size * 0.3);
+      ctx.bezierCurveTo( size * 0.6, -size, size * 1.1,  size * 0.3,  0,     size * 0.9);
+      ctx.bezierCurveTo(-size * 1.1,  size * 0.3, -size * 0.6, -size, 0, -size * 0.3);
+      ctx.closePath();
+    }
+
+    // Particle class
+    class Heart {
+      constructor() { this.reset(true); }
+
+      reset(initial) {
+        this.x     = Math.random() * canvas.width;
+        this.y     = initial ? Math.random() * canvas.height : canvas.height + 20;
+        this.size  = 5 + Math.random() * 14;
+        this.speed = 0.4 + Math.random() * 0.8;
+        this.drift = (Math.random() - 0.5) * 0.5;  // gentle horizontal sway
+        this.alpha = 0.15 + Math.random() * 0.5;
+        this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        this.angle = (Math.random() - 0.5) * 0.4;
+        this.spin  = (Math.random() - 0.5) * 0.015;
+        this.wave  = Math.random() * Math.PI * 2;   // phase for sinusoidal drift
+      }
+
+      update() {
+        this.y    -= this.speed;
+        this.wave += 0.018;
+        this.x    += Math.sin(this.wave) * 0.7 + this.drift;
+        this.angle+= this.spin;
+        if (this.y < -30) this.reset(false);
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle   = this.color;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur  = this.size * 1.5;
+        drawHeart(ctx, this.size);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // Spawn 55 hearts (comfortable density)
+    const hearts = Array.from({ length: 55 }, () => new Heart());
+
+    // Animation loop
+    function loop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      hearts.forEach(h => { h.update(); h.draw(); });
+      requestAnimationFrame(loop);
+    }
+    loop();
+  })();
+
+
+  /* ============================================================
+     2. MUSIC TOGGLE
+  ============================================================ */
+  (function () {
+    const btn   = document.getElementById('music-btn');
+    const audio = document.getElementById('bg-music');
+    let   playing = false;
+
+    // Try autoplay (browsers may block it — user can click the button)
+    audio.volume = 0.5;
+    audio.play().then(() => { playing = true; btn.textContent = '♪'; })
+              .catch(() => { /* autoplay blocked — that's OK */ });
+
+    btn.addEventListener('click', () => {
+      if (playing) {
+        audio.pause();
+        btn.textContent = '♩';
+        btn.style.color = 'rgba(255,45,120,0.4)';
+        playing = false;
+      } else {
+        audio.play();
+        btn.textContent = '♪';
+        btn.style.color = '';
+        playing = true;
+      }
+    });
+  })();
+
+
+  /* ============================================================
+     3. PHOTO SLIDESHOW (auto-advance every 3.5 s)
+  ============================================================ */
+  (function () {
+    const slides   = document.querySelectorAll('.slide');
+    const dotsWrap = document.querySelector('.slide-dots');
+    let   current  = 0;
+
+    // Build navigation dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    });
+
+    const dots = () => dotsWrap.querySelectorAll('.slide-dot');
+
+    function goTo(idx) {
+      slides[current].classList.remove('active');
+      dots()[current].classList.remove('active');
+      current = (idx + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots()[current].classList.add('active');
+    }
+
+    // Auto-advance
+    setInterval(() => goTo(current + 1), 3500);
+  })();
+
+
+  /* ============================================================
+     4. TYPEWRITER EFFECT
+     ✏️  EDIT MESSAGE — change the text in the template literal below
+  ============================================================ */
+  (function () {
+    // ─── EDIT THIS MESSAGE ───────────────────────────────────────
+    const messageText =
+      "From the very first moment I saw you, I knew you were the one my soul had been searching for. " +
+      "Every laugh we've shared, every tear we've wiped away together, every ordinary Tuesday we've " +
+      "turned into something extraordinary — I treasure every single second. " +
+      "You are my home, my adventure, my greatest love. " +
+      "Happy Anniversary, my darling. Here's to forever.";
+    // ─────────────────────────────────────────────────────────────
+
+    const output = document.getElementById('typewriter-output');
+    const sig    = document.getElementById('msg-sig');
+    const cursor = output.querySelector('.cursor');
+    let   idx    = 0;
+    let   started = false;
+
+    function typeNext() {
+      if (idx < messageText.length) {
+        // Insert character before cursor
+        const char = document.createTextNode(messageText[idx]);
+        output.insertBefore(char, cursor);
+        idx++;
+        // Vary speed slightly for organic feel
+        const delay = messageText[idx - 1] === '.' || messageText[idx - 1] === ','
+          ? 280 + Math.random() * 120
+          : 38  + Math.random() * 28;
+        setTimeout(typeNext, delay);
+      } else {
+        // Typing done — show signature
+        sig.classList.add('visible');
+      }
+    }
+
+    // Start typewriter when section scrolls into view
+    const section = document.getElementById('message');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !started) {
+          started = true;
+          setTimeout(typeNext, 600);
+        }
+      });
+    }, { threshold: 0.3 });
+    obs.observe(section);
+  })();
+
+
+  /* ============================================================
+     5. FINALE — IntersectionObserver triggers text animations
+        and starts the fireworks canvas
+  ============================================================ */
+  (function () {
+    const finaleSection = document.getElementById('finale');
+
+    // Trigger CSS animation classes
+    const animateItems = [
+      { el: document.getElementById('f-label'),  delay: 0    },
+      { el: document.getElementById('f-title'),  delay: 200  },
+      { el: document.getElementById('f-heart'),  delay: 500  },
+      { el: document.getElementById('f-sub'),    delay: 900  },
+      { el: document.getElementById('f-footer'), delay: 1300 },
+    ];
+
+    let launched = false;
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !launched) {
+          launched = true;
+          animateItems.forEach(({ el, delay }) => {
+            setTimeout(() => el.classList.add('appear'), delay);
+          });
+          startFireworks();
+        }
+      });
+    }, { threshold: 0.25 });
+
+    obs.observe(finaleSection);
+
+    /* ── FIREWORKS / HEART BURST CANVAS ── */
+    function startFireworks() {
+      const canvas = document.getElementById('fireworks-canvas');
+      const ctx    = canvas.getContext('2d');
+
+      function resize() {
+        canvas.width  = finaleSection.offsetWidth;
+        canvas.height = finaleSection.offsetHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const FW_COLORS = [
+        '#ff2d78','#ff1744','#ffc947','#ff6b9d',
+        '#ffe082','#ff5e7e','#ff80ab','#ffeb3b'
+      ];
+
+      class Particle {
+        constructor(x, y, isHeart) {
+          this.x    = x;
+          this.y    = y;
+          this.isHeart = isHeart;
+          this.vx   = (Math.random() - 0.5) * (isHeart ? 5 : 8);
+          this.vy   = (Math.random() - 0.5) * (isHeart ? 5 : 8) - (isHeart ? 1 : 2);
+          this.size = isHeart ? 5 + Math.random() * 10 : 2 + Math.random() * 3;
+          this.alpha= 1;
+          this.color= FW_COLORS[Math.floor(Math.random() * FW_COLORS.length)];
+          this.gravity = 0.07;
+          this.decay   = 0.015 + Math.random() * 0.01;
+          this.angle   = Math.random() * Math.PI * 2;
+          this.spin    = (Math.random() - 0.5) * 0.08;
+        }
+        update() {
+          this.vx   *= 0.98;
+          this.vy   += this.gravity;
+          this.x    += this.vx;
+          this.y    += this.vy;
+          this.alpha-= this.decay;
+          this.angle+= this.spin;
+        }
+        draw() {
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, this.alpha);
+          ctx.fillStyle   = this.color;
+          ctx.shadowColor = this.color;
+          ctx.shadowBlur  = this.isHeart ? 12 : 6;
+          ctx.translate(this.x, this.y);
+          ctx.rotate(this.angle);
+          if (this.isHeart) {
+            ctx.beginPath();
+            const s = this.size;
+            ctx.moveTo(0, -s * 0.3);
+            ctx.bezierCurveTo( s*0.6,-s,  s*1.1, s*0.3, 0,  s*0.9);
+            ctx.bezierCurveTo(-s*1.1, s*0.3, -s*0.6,-s, 0, -s*0.3);
+            ctx.closePath();
+          } else {
+            ctx.beginPath();
+            ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+          }
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      let particles = [];
+
+      // Launch a burst from a random position
+      function burst() {
+        const x = canvas.width  * (0.15 + Math.random() * 0.7);
+        const y = canvas.height * (0.1  + Math.random() * 0.55);
+        const count = 40 + Math.floor(Math.random() * 30);
+        const useHearts = Math.random() > 0.45;
+        for (let i = 0; i < count; i++) {
+          particles.push(new Particle(x, y, useHearts));
+        }
+      }
+
+      // Initial burst, then periodic
+      burst();
+      const burstInterval = setInterval(burst, 1800);
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles = particles.filter(p => p.alpha > 0);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      // Stop bursting after 20 s (but particles already in air finish)
+      setTimeout(() => clearInterval(burstInterval), 20000);
+    }
+  })();
+  </script>
+
+</body>
+</html>
